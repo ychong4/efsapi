@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+from pathlib import Path
 import django_heroku
 import datetime
 
@@ -161,7 +162,8 @@ JWT_AUTH = {
 
 CORS_ORIGIN_WHITELIST = (
     'https://localhost:8080',
-    'https://127.0.0.1:8080'
+    'https://127.0.0.1:8080',
+    'http://efsapi.herokuapp.com/'
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
