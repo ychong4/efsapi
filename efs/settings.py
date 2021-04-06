@@ -17,7 +17,7 @@ import datetime
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -162,8 +162,7 @@ JWT_AUTH = {
 
 CORS_ORIGIN_WHITELIST = (
     'https://localhost:8080',
-    'https://127.0.0.1:8080',
-    'http://efsapi.herokuapp.com/'
+    'https://127.0.0.1:8080'
 )
 
 CORS_ORIGIN_ALLOW_ALL = True

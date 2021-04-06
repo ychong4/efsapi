@@ -5,7 +5,7 @@ from django.utils import timezone
 class Customer(models.Model):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=200)
-    cust_number = models.IntegerField(blank=False, null=False)
+    cust_number = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     zipcode = models.CharField(max_length=10)
@@ -71,6 +71,32 @@ class Stock(models.Model):
 
     def initial_stock_value(self):
         return self.shares * self.purchase_price
+
+    def cust_number(self):
+        return self.customer.cust_number
+
+class MutualFund(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='MutualFund')
+    fund = models.CharField(max_length=50)
+    risk_level = models.CharField(max_length=50)
+    acquired_value = models.DecimalField(max_digits=10, decimal_places=2)
+    acquired_date = models.DateField(default=timezone.now)
+    recent_value = models.DecimalField(max_digits=10, decimal_places=2)
+    recent_date = models.DateField(default=timezone.now, blank=True, null=True)
+
+    def created(self):
+        self.acquired_date = timezone.now()
+        self.save()
+
+    def updated(self):
+        self.recent_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return str(self.customer)
+
+    def results_by_mutualFund(self):
+        return self.recent_value - self.acquired_value
 
     def cust_number(self):
         return self.customer.cust_number
